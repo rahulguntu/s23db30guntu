@@ -1,0 +1,15 @@
+extends layout
+block content
+  div(class="container-fluid")
+    h1= title
+  - let items = results
+    div(class="row")
+      each costume,index in items
+        div(class = "col-sm-2 bg-success" onclick=`buy(${index})`) #{costume.costume_type}
+        div(class = "col-sm-2 bg-success" onclick=`buy(${index})`) #{costume.size}
+        div(class = "col-sm-2 bg-success" onclick=`buy(${index})`) #{costume.cost}
+        
+  script.     
+    function buy(itemNo){
+      alert(`You purchased Item ${itemNo+1}`)
+    }
