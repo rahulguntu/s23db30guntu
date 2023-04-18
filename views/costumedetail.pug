@@ -1,0 +1,28 @@
+extends layout
+
+block content
+ h1= title
+
+  if(toShow == null)
+    h2 No instance to detail
+  else
+    - let costumeid = toShow._id
+    - let costume_type = toShow.costume_type
+    - let size = toShow.size 
+    - let cost = toShow.cost
+    - let actionid = "/resource/costume/" + costumeid
+    script let actionid = "#{actionid}"
+    div
+    div.row
+    div(class='costumeAttr mr-3') costume ID is: 
+       div #{costumeid}
+    div.row
+    div(class='costumeAttr mr-3') costume manufacturer is: 
+       div #{costume_type}
+    div.row
+    div(class='costumeAttr mr-3') costume size is: 
+       div #{size}
+    div.row
+    div(class='costumeAttr mr-3') costume Cost is:
+      div #{cost}
+    

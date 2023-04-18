@@ -1,15 +1,31 @@
 extends layout
+
 block content
-  div(class="container-fluid")
-    h1= title
-  - let items = results
-    div(class="row")
-      each costume,index in items
-        div(class = "col-sm-2 bg-success" onclick=`buy(${index})`) #{costume.costume_type}
-        div(class = "col-sm-2 bg-success" onclick=`buy(${index})`) #{costume.size}
-        div(class = "col-sm-2 bg-success" onclick=`buy(${index})`) #{costume.cost}
-        
-  script.     
-    function buy(itemNo){
-      alert(`You purchased Item ${itemNo+1}`)
+  h1= title
+  //- - let items = ['costume_type','size','cost']
+  - let items = results;
+  - let o;
+  script.
+    function buy(x){
+      alert('purchased item ' + x)
+   } 
+  div(class='container-fluid')
+    a(class="btn btn-primary" href="/costume/create") Create
+    div(class='row m-1')
+    div(class="row row-cols-1 row-cols-sm-4 g-6")
+      each item,index in items
+        - let destination = `dispatch(\"/costume/update?id=${item._id}\")`
+        - let details = `dispatch(\"/costume/detail?id=${item._id}\")` 
+      
+        div(class="card text-white bg-dark mb-3" class='col' class='card' class='card-body' class='card-text' onclick='buy('+index+')') Item #{item.costume_type}(#{item.size})is #{item.cost} 
+          <br><br>
+          span(class="btn btn-info", onclick= details) Details
+          <br>
+          a(class="btn btn-danger", href="/costume/delete/?id="+item._id) Delete
+          <br>
+          button.btn( class="btn-success ml-1", onclick= destination) Update
+
+  script.
+    function dispatch(path){
+      window.location.href=path
     }

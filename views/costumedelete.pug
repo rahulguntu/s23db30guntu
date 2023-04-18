@@ -1,0 +1,47 @@
+extends layout
+block content
+  h1= title
+  if(toShow == null)
+    h2 No instance to delete
+  else
+    - let costumeid = toShow._id
+    - let costume_type = toShow.costume_type
+    - let size = toShow.size
+    - let cost = toShow.cost
+    - let actionid = "/resource/costumes/" + costumeid
+    script let actionid = "#{actionid}"
+    div
+     div.row 
+      div(class='costumeAttr mr-3') costume ID is:
+      div #{costumeid}
+     div.row
+      div(class='costumeAttr mr-3') costume type is:
+      div #{costume_type}
+     div.row
+      div(class='costumeAttr mr-3') costume size is:
+      div #{size}
+     div.row
+      div(class='costumeAttr mr-3') costume cost is:
+      div #{cost}
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+  script.
+   function cancel() {
+    window.location.href='/costumes'
+    }
+  script.
+    function deleteOnid() {
+     console.log("starting delete")
+     fetch(actionid, {
+      method: 'DELETE'
+     }).then((resp) => {
+        return resp.json();
+     }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/costume'
+     }).catch((error) => {
+        alert("Delete failed " + error )
+     });
+    }
+
+    
