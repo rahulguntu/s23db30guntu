@@ -11,6 +11,14 @@ router.get('/', function(req, res, next) {
 });
 router.get('/detail', costume_controlers.costume_view_one_Page);
 router.get('/create', costume_controlers.costume_create_Page);
+const secured = (req, res, next) => {
+  if (req.user){
+  return next();
+  }
+  req.session.returnTo = req.originalUrl;
+  res.redirect("/login");
+  }
+
 router.get('/update', costume_controlers.costume_update_Page);
 router.get('/delete', costume_controlers.costume_delete_Page);
 module.exports = router;

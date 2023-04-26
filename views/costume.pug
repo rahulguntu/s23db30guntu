@@ -1,22 +1,27 @@
 extends layout
-
 block content
+
   h1= title
-  //- - let items = ['costume_type','size','cost']
+  //- - let items = ['costume_type','quantity','cost']
   - let items = results;
-  - let o;
+  - let o;  
   script.
     function buy(x){
       alert('purchased item ' + x)
    } 
   div(class='container-fluid')
+    a(class="btn btn-sucess" href="/costume/create") Create
     div(class='row m-1')
     div(class="row row-cols-1 row-cols-sm-4 g-6")
       each item,index in items
         - let destination = `dispatch(\"/costume/update?id=${item._id}\")`
+        - let details = `dispatch(\"/costume/detail?id=${item._id}\")` 
       
-        div(class="card text-white bg-dark mb-3" class='col' class='card' class='card-body' class='card-text' onclick='buy('+index+')') Item #{item.costume_type}(#{item.size})is #{item.cost} 
-
+        div(class="costumed text-white bg-dark mb-3" class='col' class='costumed' class='costumed-body' class='costumed-text' onclick='buy('+index+')') Item #{item.costume_type}(#{item.size})is #{item.cost} 
+          <br><br>
+          span(class="btn btn-primary", onclick= details) Details
+          <br>
+          a(class="btn btn-warning", href="/costume/delete/?id="+item._id) Delete
           <br>
           button.btn( class="btn-success ml-1", onclick= destination) Update
 
